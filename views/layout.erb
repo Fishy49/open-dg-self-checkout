@@ -43,14 +43,27 @@
 
 	<!-- Scan Page -->
 	<div class="h-screen w-screen max-h-screen overflow-hidden" x-show="scanPage">
-		<div class="w-screen h-1/5 bg-white grid grid-cols-4">
+		<div class="w-screen h-1/5 bg-white grid grid-cols-5 items-center p-5">
 			<div class="text-2xl col-span-2">
 				Welcome to Self-Checkout.<br>
 				Please scan your items.<br>
 				Press Pay Now when you are finished.
 			</div>
-			<div><img src="/images/dg-logo.png" width="400"></div>
-			<div><img src="/images/dg-pickup-logo.png" width="400"></div>
+			<div class="col-span-2"><img class="mx-auto" src="/images/dg-logo.png" width="400"></div>
+			<div>
+				<img src="/images/dg-pickup-logo.png" width="400"><br>
+				<div class="text-center font-bold text-3xl">In and out in<br>1 minute.</div>
+			</div>
+		</div>
+
+		<div class="w-screen h-4/5 grid grid-cols-5">
+			<div class="col-span-4 bg-gradient-to-tr from-[#6694d2] to-[#5b6681]">
+				<div class="w-100 min-h-full bg-[url('/images/dg-letters.png')] bg-repeat">
+					
+					<h1>Scan!</h1>
+				</div>
+			</div>
+			<div class="col-span-1 bg-white">Ferda</div>
 		</div>
 	</div>
 	<script>
