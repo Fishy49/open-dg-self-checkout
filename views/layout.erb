@@ -88,7 +88,7 @@
 						<img src="/images/bell.png" class="mx-auto" width="125"><br>
 						<div class="text-2xl -mt-5 leading-6">Call For<br>Help</div>
 					</div>
-					<div class="bg-white w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-5 mx-auto cursor-pointer" @click="document.getElementById('dgBeep').play()">
+					<div class="bg-white w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-5 mx-auto cursor-pointer" @click="document.getElementById('enterPhoneNumber').play(); scanPageActions = false; phoneNumberModal = true;">
 						<img src="/images/digital-coupons.png" class="mx-auto" width="250"><br>
 						<div class="text-2xl -mt-5 leading-6">Enter<br>Phone #</div>
 					</div>
@@ -124,7 +124,7 @@
 							<div class="text-left w-fit leading-8">Pay With<br>Card</div>
 						</div>
 					</div>
-					<div class="bg-[#bfc922] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="pinPadModal == false ?  document.getElementById('checkBasket').play(): ''; pinPadModal = true;">
+					<div class="bg-[#bfc922] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="giftCardModal == false ?  document.getElementById('selectGiftCardType').play(): ''; giftCardModal = true;">
 						<div class="text-right pr-10"><img src="/images/gift-card.png" class="text-right" align="right" width="75"><br></div>
 						<div class="text-3xl font-semibold">
 							<div class="text-left w-fit leading-8">Pay With<br>Gift Card</div>
@@ -137,6 +137,68 @@
 
 				<!-- Please Wait Modal -->
 				<div x-show="pleaseWaitModal" class="absolute top-1/4 left-1/4 w-[400px] h-[200px] border-4 border-[#fff100] bg-black text-white text-center pt-10">Please Wait<br>Card Processing<br>(Action may be required)</div>
+
+				<!-- Phone NUmber Modal -->
+				<div x-show="phoneNumberModal" class="absolute top-1/4 left-2 w-3/4 h-2/3 rounded-lg border-8 border-white bg-[#38373f] grid grid-cols-3 justify-evenly">
+					<div>&nbsp;</div>
+					<div>
+						<div class="grid grid-cols-4 grid-flow-row-dense gap-0 bg-white max-h-[450px]">
+							<div class="text-3xl text-white col-span-4 bg-[#38373f] pt-1 font-semibold">Enter Phone Number</div>
+							<div class="col-span-3 bg-[#38373f] pb-5">
+								<div class="flex items-center border-b border-white py-2">
+							    <input class="appearance-none bg-transparent border-none w-full text-white text-2xl mr-3 py-1 px-2 leading-tight focus:outline-none" type="text" aria-label="" id="phoneNumberField">
+							  </div>
+							</div>
+							<div class="bg-[#38373f]">&nbsp;</div>
+						</div>
+						<div class="grid grid-cols-4 grid-flow-row-dense gap-0 bg-white max-h-[450px] items-center divide-black divide-x divide-y">
+							<%
+								keypad_rows = [
+									["7", "8", "9", "Backspace"],
+									["4", "5", "6", "Clear"],
+									["1", "2", "3", "Enter"],
+									["0", "00", "."]
+								].each do |row|
+							%>
+								<% row.each do |button| %>
+									<% if button == "Backspace" %>
+										<div class="text-center p-2 bg-black text-white pt-[12px] pb-[20px]"@click="document.getElementById('dgBeep').play(); document.getElementById('phoneNumberField').value = document.getElementById('phoneNumberField').value.slice(0, -1);">Backspace</div>
+									<% elsif button == "Clear" %>
+										<div class="text-center p-2 bg-black text-white pt-[12px] pb-[20px]" @click="document.getElementById('dgBeep').play();document.getElementById('phoneNumberField').value = '';">Clear</div>
+									<% elsif button == "Enter" %>
+										<div class="text-center p-2 row-span-2 text-2xl bg-black text-white pt-[40px] pb-[41px]" @click="document.getElementById('dgBeep').play();phoneNumberModal = false;document.getElementById('scanCoupon').play(); scanPagePayActions = true;">Enter</div>
+									<% else %>
+										<div class="text-center text-4xl p-2" @click="document.getElementById('dgBeep').play(); document.getElementById('phoneNumberField').value = document.getElementById('phoneNumberField').value + '<%= button %>';"><%= button %></div>
+									<% end %>
+								<% end %>
+							<% end %>
+						</div>
+					</div>
+					<div>&nbsp;</div>
+				</div>
+
+				<!-- Gift Card Modal -->
+				<div x-show="giftCardModal" class="absolute top-1/4 left-2 w-3/4 h-2/3 rounded-lg border-8 border-[#fff100] bg-[#38373f] grid grid-cols-3 grid-flow-row">
+					<div class="col-span-3 text-white text-center text-lg py-16">Please select your gift card type:</div>
+					<div>
+						<div class="rounded-2xl bg-[#fff100] p-5 text-center text-2xl text-black max-w-[300px] mx-auto" @click="pinPadModal == false ?  document.getElementById('checkBasket').play(): ''; pinPadModal = true;giftCardModal = false;">
+							<img src="/images/card.png" class="mx-auto h-[100px]" height="100"><br>
+							Swipe
+						</div>
+					</div>
+					<div>
+						<div class="rounded-2xl bg-[#fff100] p-5 text-center text-2xl text-black max-w-[300px] mx-auto" @click="pinPadModal == false ?  document.getElementById('checkBasket').play(): ''; pinPadModal = true;giftCardModal = false;">
+							<img src="/images/barcode.png" class="mx-auto h-[100px]" height="100"><br>
+							Barcode
+						</div>
+					</div>
+					<div>
+						<div class="rounded-2xl bg-[#fff100] p-5 text-center text-2xl text-black max-w-[300px] mx-auto" @click="document.getElementById('dgBeep').play();giftCardModal = false;">
+							<img src="/images/cancel.png" class="mx-auto h-[100px]" height="100"><br>
+							Cancel
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -169,6 +231,8 @@
 	      scanPageHotCheetos: false,
 	      pinPadModal: false,
 	      pleaseWaitModal: false,
+	      phoneNumberModal: false,
+	      giftCardModal: false,
 	      payWithCashScreen: false,
 	      nothingPaid: true,
 	      fullyPaid: false
@@ -181,5 +245,7 @@
   <audio src="/audio/check_basket.mp3" class="hidden" id="checkBasket"></audio>
   <audio src="/audio/thank_you.mp3" class="hidden" id="thankYou"></audio>
   <audio src="/audio/insert_cash.mp3" class="hidden" id="insertCash"></audio>
+  <audio src="/audio/enter_phone_number.mp3" class="hidden" id="enterPhoneNumber"></audio>
+  <audio src="/audio/select_gift_card_type.mp3" class="hidden" id="selectGiftCardType"></audio>
 </body>
 </html>
