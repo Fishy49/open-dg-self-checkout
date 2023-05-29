@@ -2,6 +2,10 @@
 
 This attempts to re-create the Dollar General Self-Checkout process in the browser as faithfully as possible.
 
+See an example of it operating here: [https://youtu.be/cEKCKyMV7sY](https://youtu.be/cEKCKyMV7sY)
+
+It is currently being hosting at [dg.richardcagle.dev](https://dg.richardcagle.dev)
+
 ## Why?
 My autistic son _loves_ the self-checkout at Dollar General and quotes it regularly. This was made to give him a way to hear his favorite audio prompts and re-play the process as much as he needed.
 
