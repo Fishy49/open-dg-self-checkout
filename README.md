@@ -6,6 +6,9 @@ See an example of it operating here: [https://youtu.be/cEKCKyMV7sY](https://yout
 
 It is currently being hosting at [dg.richardcagle.dev](https://dg.richardcagle.dev)
 
+<img width="500" alt="image" src="https://github.com/Fishy49/open-dg-self-checkout/assets/5632528/6d947597-103c-40f0-99ff-a021002a476b">
+
+
 ## Why?
 My autistic son _loves_ the self-checkout at Dollar General and quotes it regularly. This was made to give him a way to hear his favorite audio prompts and re-play the process as much as he needed.
 
