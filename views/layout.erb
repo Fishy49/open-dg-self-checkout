@@ -124,7 +124,7 @@
 							<div class="text-left w-fit leading-8">Pay With<br>Card</div>
 						</div>
 					</div>
-					<div class="bg-[#bfc922] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="document.getElementById('dgBeep').play()">
+					<div class="bg-[#bfc922] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="pinPadModal == false ?  document.getElementById('checkBasket').play(): ''; pinPadModal = true;">
 						<div class="text-right pr-10"><img src="/images/gift-card.png" class="text-right" align="right" width="75"><br></div>
 						<div class="text-3xl font-semibold">
 							<div class="text-left w-fit leading-8">Pay With<br>Gift Card</div>
