@@ -24,7 +24,7 @@
 			<div class="w-screen mx-auto grid grid-cols-8 pt-[2%]">
 				<div class="col-span-2">&nbsp;</div>
 				<div class="col-span-4">
-					<div @click="startPage = false; scanPage = true; document.getElementById('welcomeAudio').play();" class="grid grid-cols-3 w-fit rounded-3xl bg-black p-10 cursor-pointer">
+					<div @click="startPage = false; scanPage = true; scanPageActions = true; document.getElementById('welcomeAudio').play();" class="grid grid-cols-3 w-fit rounded-3xl bg-black p-10 cursor-pointer">
 						<div class="border-r-4 border-r-white w-fit pr-5"><img src="/images/cart.png" width="100"></div>
 						<div class="text-white font-bold uppercase text-left text-4xl col-span-2 whitespace-nowrap">Start<br>Self Checkout</div>
 					</div>
@@ -44,26 +44,96 @@
 	<!-- Scan Page -->
 	<div class="h-screen w-screen max-h-screen overflow-hidden" x-show="scanPage">
 		<div class="w-screen h-1/5 bg-white grid grid-cols-5 items-center p-5">
-			<div class="text-2xl col-span-2">
+			<div class="text-2xl col-span-3">
 				Welcome to Self-Checkout.<br>
 				Please scan your items.<br>
 				Press Pay Now when you are finished.
 			</div>
 			<div class="col-span-2"><img class="mx-auto" src="/images/dg-logo.png" width="400"></div>
-			<div>
-				<img src="/images/dg-pickup-logo.png" width="400"><br>
-				<div class="text-center font-bold text-3xl">In and out in<br>1 minute.</div>
-			</div>
 		</div>
 
-		<div class="w-screen h-4/5 grid grid-cols-5">
-			<div class="col-span-4 bg-gradient-to-tr from-[#6694d2] to-[#5b6681]">
-				<div class="w-100 min-h-full bg-[url('/images/dg-letters.png')] bg-repeat">
-					
-					<h1>Scan!</h1>
+		<div class="w-screen h-4/5 grid grid-cols-5 bg-gradient-to-tr from-[#6694d2] to-[#5b6681]">
+			<div class="col-span-5 bg-[url('/images/dg-letters.png')] bg-repeat grid grid-cols-5">
+				<div class="w-100 min-h-full col-span-3">
+					<div class="my-5 min-h-[90%] w-5/6 mx-auto bg-white rounded-sm shadow-2xl" @click="scanPageHotCheetos == false ? document.getElementById('dgBeep').play() : ''; scanPageHotCheetos = true;">
+						<div class="grid grid-cols-6 grid-flow-row p-2">
+							<div class="text-2xl col-span-5">Description</div>
+							<div class="text-left text-2xl">$</div>
+						</div>
+						<div x-show="scanPageHotCheetos">
+							<div class="grid grid-cols-6 grid-flow-row p-2">
+								<div class="text-2xl col-span-5">Hot Cheetos</div>
+								<div class="text-left text-2xl">$2.25</div>
+							</div>
+							<div class="grid grid-cols-6 grid-flow-row p-2 mt-60 bg-gray-200 font-bold">
+								<div class="text-2xl col-span-4 text-right">Subtotal:</div>
+								<div class="text-right text-2xl">$2.25</div>
+							</div>
+							<div class="grid grid-cols-6 grid-flow-row p-2 mt-2 bg-gray-200 font-bold">
+								<div class="text-2xl col-span-4 text-right">Tax:</div>
+								<div class="text-right text-2xl">$0.84</div>
+							</div>
+							<div class="grid grid-cols-3 grid-flow-row p-2 mt-20 font-bold">
+								<div class="text-2xl">1 Item</div>
+								<div class="text-right text-2xl">Due:</div>
+								<div class="text-left text-2xl ml-12">$3.09</div>
+							</div>
+						</div>
+					</div>
 				</div>
+
+				<!-- Scan Page Actions -->
+				<div class="col-span-2" x-show="scanPageActions">
+					<div class="bg-white w-[75%] mt-5 max-h-[300px] rounded-2xl text-center py-5 mx-auto cursor-pointer" @click="document.getElementById('dgBeep').play()">
+						<img src="/images/bell.png" class="mx-auto" width="125"><br>
+						<div class="text-2xl -mt-5 leading-6">Call For<br>Help</div>
+					</div>
+					<div class="bg-white w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-5 mx-auto cursor-pointer" @click="document.getElementById('dgBeep').play()">
+						<img src="/images/digital-coupons.png" class="mx-auto" width="250"><br>
+						<div class="text-2xl -mt-5 leading-6">Enter<br>Phone #</div>
+					</div>
+					<div class="bg-[#60c329] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-6 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="document.getElementById('scanCoupon').play(); scanPageActions = false; scanPagePayActions = true;">
+						<div class="text-right"><img src="/images/money-hand.png" class="text-right" align="right" width="75"><br></div>
+						<div class="text-5xl leading-10  font-semibold uppercase">
+							<div class="text-center w-fit">Pay<br>Now</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Scan Page Pay Actions -->
+				<div class="col-span-2" x-show="scanPagePayActions">
+					<div class="grid grid-cols-2 w-[430px] mx-auto">
+						<div class="bg-white mt-5 rounded-2xl text-center py-5 mx-auto cursor-pointer min-w-[200px]" @click="document.getElementById('dgBeep').play()">
+							<img src="/images/bell.png" class="mx-auto" width="100"><br>
+							<div class="text-2xl -mt-5 leading-6">Call For<br>Help</div>
+						</div>
+						<div class="bg-white mt-5 rounded-2xl text-center py-5 mx-auto cursor-pointer min-w-[200px]" @click="document.getElementById('dgBeep').play()">
+							<img src="/images/cross.png" class="mx-auto" width="100"><br>
+							<div class="text-2xl -mt-5 leading-6">Add<br>More Items</div>
+						</div>
+					</div>
+					<div class="bg-[#60c329] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="document.getElementById('dgBeep').play()">
+						<div class="text-right pr-10"><img src="/images/cash-dispense.png" class="text-right" align="right" width="75"><br></div>
+						<div class="text-3xl font-semibold">
+							<div class="text-left w-fit leading-8">Pay With<br>Cash</div>
+						</div>
+					</div>
+					<div class="bg-[#007ce4] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="pinPadModal == false ?  document.getElementById('checkBasket').play(): ''; pinPadModal = true;">
+						<div class="text-right pr-10"><img src="/images/cards.png" class="text-right" align="right" width="75"><br></div>
+						<div class="text-3xl font-semibold">
+							<div class="text-left w-fit leading-8">Pay With<br>Card</div>
+						</div>
+					</div>
+					<div class="bg-[#bfc922] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="document.getElementById('dgBeep').play()">
+						<div class="text-right pr-10"><img src="/images/gift-card.png" class="text-right" align="right" width="75"><br></div>
+						<div class="text-3xl font-semibold">
+							<div class="text-left w-fit leading-8">Pay With<br>Gift Card</div>
+						</div>
+					</div>
+				</div>
+				<div x-show="pinPadModal" class="absolute top-1/4 left-1/4 w-[400px] h-[200px] border-4 border-[#fff100] bg-black text-white text-center pt-10" @click="pinPadModal = false; pleaseWaitModal = true; setTimeout(() => { document.getElementById('thankYou').play(); startPage = true; scanPage = false; scanPageActions = false; scanPagePayActions = false; scanPageHotCheetos = false; pinPadModal = false; pleaseWaitModal = false; }, 1500)">Please Wait<br>Insert/Swipe Card</div>
+				<div x-show="pleaseWaitModal" class="absolute top-1/4 left-1/4 w-[400px] h-[200px] border-4 border-[#fff100] bg-black text-white text-center pt-10">Please Wait<br>Card Processing<br>(Action may be required)</div>
 			</div>
-			<div class="col-span-1 bg-white">Ferda</div>
 		</div>
 	</div>
 	<script>
@@ -71,15 +141,18 @@
 	    return {
 	      startPage: false,
 	      scanPage: true,
-	      scanPageSidebar: false,
-	      scanPageActions: false,
+	      scanPageActions: true,
 	      scanPagePayActions: false,
-	      donateModal: false,
+	      scanPageHotCheetos: false,
 	      pinPadModal: false,
 	      pleaseWaitModal: false
       }
     }
   </script>
   <audio src="/audio/welcome.mp3" class="hidden" id="welcomeAudio"></audio>
+  <audio src="/audio/dg_beep.mp3" class="hidden" id="dgBeep"></audio>
+  <audio src="/audio/scan_a_coupon.mp3" class="hidden" id="scanCoupon"></audio>
+  <audio src="/audio/check_basket.mp3" class="hidden" id="checkBasket"></audio>
+  <audio src="/audio/thank_you.mp3" class="hidden" id="thankYou"></audio>
 </body>
 </html>
