@@ -12,3 +12,6 @@ My autistic son _loves_ the self-checkout at Dollar General and quotes it regula
 ## Limitations
 1. Audio quality is rough - ripped from my phone recording and other youtube videos. This needs to be improved.
 2. Not all screens work as they do in real life - I haven't used them all before so some of the buttons just beep and do nothing.
+
+## Disclaimer
+Icons & Audio that are not mine and are used here purely for educational/entertainment purposes.
