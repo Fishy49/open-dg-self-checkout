@@ -112,7 +112,7 @@
 							<div class="text-2xl -mt-5 leading-6">Add<br>More Items</div>
 						</div>
 					</div>
-					<div class="bg-[#60c329] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="document.getElementById('dgBeep').play()">
+					<div class="bg-[#60c329] w-[75%] mt-5 max-h-[250px] rounded-2xl text-center py-3 mx-auto grid grid-cols-2 items-center gap-5 cursor-pointer" @click="document.getElementById('insertCash').play(); scanPage = false; payWithCashScreen = true;">
 						<div class="text-right pr-10"><img src="/images/cash-dispense.png" class="text-right" align="right" width="75"><br></div>
 						<div class="text-3xl font-semibold">
 							<div class="text-left w-fit leading-8">Pay With<br>Cash</div>
@@ -131,10 +131,33 @@
 						</div>
 					</div>
 				</div>
+				
+				<!-- Pin Pad Modal -->
 				<div x-show="pinPadModal" class="absolute top-1/4 left-1/4 w-[400px] h-[200px] border-4 border-[#fff100] bg-black text-white text-center pt-10" @click="pinPadModal = false; pleaseWaitModal = true; setTimeout(() => { document.getElementById('thankYou').play(); startPage = true; scanPage = false; scanPageActions = false; scanPagePayActions = false; scanPageHotCheetos = false; pinPadModal = false; pleaseWaitModal = false; }, 1500)">Please Wait<br>Insert/Swipe Card</div>
+
+				<!-- Please Wait Modal -->
 				<div x-show="pleaseWaitModal" class="absolute top-1/4 left-1/4 w-[400px] h-[200px] border-4 border-[#fff100] bg-black text-white text-center pt-10">Please Wait<br>Card Processing<br>(Action may be required)</div>
 			</div>
 		</div>
+	</div>
+
+	<!-- Pay With Cash Screen -->
+	<div class="h-screen w-screen bg-[#fff100] grid grid-cols-2 grid-flow-row" x-show="payWithCashScreen">
+		<div class="text-center col-span-2 text-4xl my-5">Please insert cash, or select Pay Another Way</div>
+
+		<div class="text-4xl text-right font-semibold">Total Due:</div>
+		<div class="text-4xl text-left ml-24 font-semibold">$3.09</div>
+		<div class="text-4xl text-right font-semibold">Amount Paid:</div>
+		<div class="text-4xl text-left ml-24 font-semibold" x-show="nothingPaid">$0.00</div>
+		<div class="text-4xl text-left ml-24 font-semibold" x-show="fullyPaid">$3.09</div>
+		<div class="text-4xl text-right font-semibold">Balance Due:</div>
+		<div class="text-4xl text-left ml-24 font-semibold" x-show="nothingPaid">$3.09</div>
+		<div class="text-4xl text-left ml-24 font-semibold" x-show="fullyPaid">$0.00</div>
+
+		<div class="col-span-2 text-center">
+			<div class="w-[400px] bg-black text-white text-xl p-5 mx-auto cursor-pointer" @click="nothingPaid = false; fullyPaid = true; setTimeout(() => { document.getElementById('thankYou').play(); startPage = true; scanPage = false; scanPageActions = false; scanPagePayActions = false; scanPageHotCheetos = false; pinPadModal = false; pleaseWaitModal = false; payWithCashScreen = false; }, 1500)">Pay Another Way</div>
+		</div>
+
 	</div>
 	<script>
     const setup = () => {
@@ -145,7 +168,10 @@
 	      scanPagePayActions: false,
 	      scanPageHotCheetos: false,
 	      pinPadModal: false,
-	      pleaseWaitModal: false
+	      pleaseWaitModal: false,
+	      payWithCashScreen: false,
+	      nothingPaid: true,
+	      fullyPaid: false
       }
     }
   </script>
@@ -154,5 +180,6 @@
   <audio src="/audio/scan_a_coupon.mp3" class="hidden" id="scanCoupon"></audio>
   <audio src="/audio/check_basket.mp3" class="hidden" id="checkBasket"></audio>
   <audio src="/audio/thank_you.mp3" class="hidden" id="thankYou"></audio>
+  <audio src="/audio/insert_cash.mp3" class="hidden" id="insertCash"></audio>
 </body>
 </html>
