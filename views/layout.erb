@@ -107,7 +107,7 @@
 							<img src="/images/bell.png" class="mx-auto" width="100"><br>
 							<div class="text-2xl -mt-5 leading-6">Call For<br>Help</div>
 						</div>
-						<div class="bg-white mt-5 rounded-2xl text-center py-5 mx-auto cursor-pointer min-w-[200px]" @click="document.getElementById('dgBeep').play()">
+						<div class="bg-white mt-5 rounded-2xl text-center py-5 mx-auto cursor-pointer min-w-[200px]" @click="document.getElementById('dgBeep').play();scanPagePayActions = false;scanPageActions = true;">
 							<img src="/images/cross.png" class="mx-auto" width="100"><br>
 							<div class="text-2xl -mt-5 leading-6">Add<br>More Items</div>
 						</div>
