@@ -24,7 +24,7 @@
 			<div class="w-screen mx-auto grid grid-cols-8 pt-[2%]">
 				<div class="col-span-2">&nbsp;</div>
 				<div class="col-span-4">
-					<div @click="startPage = false; scanPage = true; scanPageActions = true; document.getElementById('welcomeAudio').play();" class="grid grid-cols-3 w-fit rounded-3xl bg-black p-10 cursor-pointer">
+					<div @click="cashPaymentsUnavailableModal = true; document.getElementById('cashPaymentsUnavailable').play();" class="grid grid-cols-3 w-fit rounded-3xl bg-black p-10 cursor-pointer">
 						<div class="border-r-4 border-r-white w-fit pr-5"><img src="/images/cart.png" width="100"></div>
 						<div class="text-white font-bold uppercase text-left text-4xl col-span-2 whitespace-nowrap">Start<br>Self Checkout</div>
 					</div>
@@ -39,6 +39,14 @@
 				<div><img class="-mt-20 min-w-[170px]" src="/images/qr_phone_hand.png" width="300"></div>
 			</div>
 		</div>
+
+			<!-- Pin Pad Modal -->
+			<div x-show="cashPaymentsUnavailableModal" class="absolute top-[35%] left-[28%] w-[400px] h-[190px] border-8 border-[#fff100] bg-[#445470] text-white text-center pt-4">At this time this self-checkout does not accept cash<br>payment and no cash-back is given. Do you wish to<br>continue with another form of payment?<br>
+				<div class="grid grid-cols-2 justify-items-center mt-4">
+					<div class="text-center text-white p-6 bg-black w-[150px]" @click="startPage = false; scanPage = true; scanPageActions = true; cashPaymentsUnavailableModal = false; document.getElementById('welcomeAudio').play();">Continue</div>
+					<div class="text-center text-white p-6 bg-black w-[150px]" @click="cashPaymentsUnavailableModal = false;">Cancel</div>
+				</div>
+			</div>
 	</div>
 
 	<!-- Scan Page -->
@@ -225,6 +233,7 @@
     const setup = () => {
 	    return {
 	      startPage: true,
+	      cashPaymentsUnavailableModal: false,
 	      scanPage: false,
 	      scanPageActions: false,
 	      scanPagePayActions: false,
@@ -239,6 +248,7 @@
       }
     }
   </script>
+  <audio src="/audio/cash_payments_unavailable.mp3" class="hidden" id="cashPaymentsUnavailable"></audio>
   <audio src="/audio/welcome.mp3" class="hidden" id="welcomeAudio"></audio>
   <audio src="/audio/dg_beep.mp3" class="hidden" id="dgBeep"></audio>
   <audio src="/audio/scan_a_coupon.mp3" class="hidden" id="scanCoupon"></audio>
